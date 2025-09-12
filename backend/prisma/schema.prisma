@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model operadores{
+  id Int @id @default(autoincrement())
+  nome String
+  funcao String?
+  email String @unique
+  password String
+
+}
+model QRCodes{
+  idQR Int @id @default(autoincrement())
+  dadosQR String @unique
+  longitude String @unique
+  latitude String @unique
+  detalheCode String?
+}
+
+model Rota{
+  id Int @id @default(autoincrement())
+  nome String
+  pontos Ponto[] //uma rota tem muitos pontos geográficos
+}
+
+model Ponto{
+  id Int @id @default(autoincrement())
+  lat Float
+  lng Float
+  rota Rota @relation(fields: [rotaId], references: [id])
+  rotaId Int
+}

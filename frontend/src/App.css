@@ -1,0 +1,43 @@
+.leaflet-container{
+  width:100vw;
+  height: 100vh;
+}
+
+div#map{
+  width:800px;
+  height: 500px;
+  border-color: black;
+  padding:8px;
+  color:aqua;
+  background-color: brown;
+  
+  overflow: hidden;
+}
+p{
+  color:black;
+}
+button{
+  border-radius: 10%;
+  padding: 25px;
+  background-color: aqua;
+  color:black;
+  margin:15px
+}
+
+
+div.lista{
+  width: 25%;
+  border: 2px solid aqua;
+}
+div.lista ul{
+  list-style: none;
+  align-items: center;
+  justify-content: center;
+
+}
+li{
+ cursor:pointer;
+}
+li:hover{
+ background-color: aqua;
+}
