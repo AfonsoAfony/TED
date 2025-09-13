@@ -3,7 +3,7 @@
   height: 100vh;
 }
 
-div#map{
+div.map{
   width:800px;
   height: 500px;
   border-color: black;
@@ -21,7 +21,7 @@ button{
   padding: 25px;
   background-color: aqua;
   color:black;
-  margin:15px
+  margin:5px
 }
 
 

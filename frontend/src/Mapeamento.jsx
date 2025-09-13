@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { MapContainer, TileLayer, Marker, Polyline, useMapEvents } from 'react-leaflet';
+import RastreamentoOperador from './Geolocalizacao';
 
 //FUNÇÃO PARA BUSCAR TODAS AS ROTAS NA BASE DE DADOS:***********************************
 async function buscaRotas(){
@@ -74,8 +75,10 @@ const pontoInicial = [{ lat: -8.839, lng: 13.289 }];
 
 
 
-
+/***************************************/
 export default function Mapeamento() {
+/***************************************/
+
 
   const [conjuntoPontos, setConjuntoPontos] = useState([]);
   let [rotas,setRotas] = useState([]);
@@ -128,14 +131,24 @@ async function buscarPontosDaRota(idRota){
     setConjuntoPontos((prev) => [...prev, ponto]); // atualiza estado 
   };
 
+
+  
+    // Caminho para imagem PNG
+    const iconePersonalizado = L.icon({
+      iconUrl: 'img/garbage.png', // ou 'https://teusite.com/marcador.png'
+      iconSize: [30, 30],               // tamanho do ícone
+      iconAnchor: [15, 30],             // ponto que será alinhado à coordenada
+      popupAnchor: [0, -30],            // onde o popup aparece em relação ao ícone
+       
+    });
   return (
     <div>
-      <div id="map" className="border rounded border-black w-5 h-50 bg-amber-500">
+      <div className="map" >
         <MapContainer center={pontoInicial[0]} zoom={13} style={{ height: '100%', width: '100%' }}>
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
           {conjuntoPontos.map((p, i) => (
-            <Marker key={i} position={[p.lat, p.lng]} />
+            <Marker key={i} position={[p.lat, p.lng]} icon={iconePersonalizado} />
           ))}
 
           <Polyline positions={conjuntoPontos.map((p) => [p.lat, p.lng])} color="green" />
@@ -167,6 +180,8 @@ async function buscarPontosDaRota(idRota){
             }
         </ul>
       </div>
+
+      <RastreamentoOperador operadorId={15}/>
     </div>
   );
 }
