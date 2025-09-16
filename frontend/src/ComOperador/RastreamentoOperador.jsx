@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import MapaOperador from './MapaOperador';
+import { useNavigate } from 'react-router-dom';
 
-export default function RastreamentoOperador({ operadorId }) {
+export default function RastreamentoOperador() {
+
+  
+const operadorId=15
   const [posicao, setPosicao] = useState({ lat: 0, lng: 0 });
 
   useEffect(() => {
@@ -42,10 +46,29 @@ export default function RastreamentoOperador({ operadorId }) {
     };
   }, [operadorId]);
 
+ 
+ const navigate=useNavigate()
+
+useEffect(()=>{
+const dados = localStorage.getItem("dadosOperadorAutenticado");
+if (dados ) {
+  const operador = JSON.parse(dados);
+if(!operador.id || !operador.email || operador.autencicado !="sim"){
+   navigate('/')
+}
+//se  existem, pausará aqui
+}
+else{
+   navigate('/')
+
+}
+
+},[])
+
+
   return (
-    <div>
-      <h3>Posição atual do operador {operadorId}</h3>
+    
       <MapaOperador posicao={posicao} />
-    </div>
+    
   );
 }

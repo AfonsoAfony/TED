@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { MapContainer, TileLayer, Marker, Polyline, useMapEvents } from 'react-leaflet';
-import RastreamentoOperador from './Geolocalizacao';
+
 
 //FUNÇÃO PARA BUSCAR TODAS AS ROTAS NA BASE DE DADOS:***********************************
 async function buscaRotas(){
@@ -142,9 +142,9 @@ async function buscarPontosDaRota(idRota){
        
     });
   return (
-    <div>
-      <div className="map" >
-        <MapContainer center={pontoInicial[0]} zoom={13} style={{ height: '100%', width: '100%' }}>
+    <div className=' text-left'>
+      <div className="map w-[400px] md:w-[550px] xl:w-[670px] mb-4" >
+        <MapContainer center={pontoInicial[0]} zoom={11} style={{ height: '100%', width: '100%' }}>
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
           {conjuntoPontos.map((p, i) => (
@@ -157,31 +157,39 @@ async function buscarPontosDaRota(idRota){
         </MapContainer>
       </div>
 
-      <button onClick={() => salvarRota(conjuntoPontos)}>
-        Guardar Rota
-      </button>
-      <button onClick={() => {
-        setConjuntoPontos([])
-        console.log(conjuntoPontos)
+      <div className=' flex justify-between'>
+        <div className='w-[40%]'>
+                    <button className=' ml-1 mr-3  bg-transparent text-indigo-200 font-semibold text-sm md:text-lg border-2 rounded border-indigo-200 py-3 px-5 transicao hover:border-none hover:bg-indigo-400  hover:text-slate-950' onClick={() => salvarRota(conjuntoPontos)}>
+                Guardar Rota
+              </button>
+              <button className=' ml-1 mt-2  bg-transparent text-red-300 font-semibold text-sm md:text-lg border-2 rounded border-red-300 py-3 px-6 transicao hover:border-none hover:bg-red-800  hover:text-slate-950' onClick={() => {
+                setConjuntoPontos([])
+                console.log(conjuntoPontos)
 
-      }}>
-       Parar
-      </button>
+              }}>
+              Parar
+              </button>
+        </div>
+        <div className='w-[55%] flex justify-end text-right'>
+                <div className="lista ml-1 mr-3">
+            <ul>
+              <h2 className='text-lg md:text-2xl font-bold text-indigo-200'>Lista das Rotas</h2>
+                { 
+                
+                  rotas.map((r)=>(
+                  <li onClick={()=>buscarPontosDaRota(r.id)} key={r.id}> {r.id} = {r.nome}</li>
+                  )) 
+                }
+            </ul>
+          </div>
+        </div>
+  </div>
+      
 
 
-      <div className="lista">
-        <ul>
-          <h2>Lista das Rotas:</h2>
-            { 
-            
-              rotas.map((r)=>(
-              <li onClick={()=>buscarPontosDaRota(r.id)} key={r.id}> {r.id} = {r.nome}</li>
-              )) 
-            }
-        </ul>
-      </div>
-
-      <RastreamentoOperador operadorId={15}/>
+      
+      
+      
     </div>
   );
 }

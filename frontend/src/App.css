@@ -1,34 +1,43 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color:rgb(2,6,23);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .leaflet-container{
   width:100vw;
   height: 100vh;
 }
 
 div.map{
-  width:800px;
+  
   height: 500px;
   border-color: black;
   padding:8px;
-  color:aqua;
-  background-color: brown;
+  
   
   overflow: hidden;
 }
 p{
   color:black;
 }
-button{
-  border-radius: 10%;
-  padding: 25px;
-  background-color: aqua;
-  color:black;
-  margin:5px
-}
 
 
-div.lista{
-  width: 25%;
-  border: 2px solid aqua;
-}
+
 div.lista ul{
   list-style: none;
   align-items: center;
@@ -37,7 +46,113 @@ div.lista ul{
 }
 li{
  cursor:pointer;
+ padding-right: 9px;
+ transition: all 1s ease; /* Aplica transição lenta em todos os estilos */
+  position: relative; 
+   padding-top:2px;
+ padding-bottom:2px;
 }
 li:hover{
- background-color: aqua;
+  size:1rem;
+ color: rgb(166, 182, 253);
+
+  transition: all 1s ease; /* Aplica transição lenta em todos os estilos */
+  position: relative; 
 }
+
+.Mostrar{
+  display:flex;
+}
+
+.NaoMostrar{
+  display:none;
+}
+
+
+.smsPositiva{
+ color: rgb(0, 153, 255);
+ font-size: 100%;
+ transition: all 3s ease; /* Aplica transição lenta em todos os estilos */
+  position: relative;        
+
+}
+.smsNegativa{
+  color: rgba(249, 107, 107, 0.618);
+  font-size: 100%;
+  transition: all 3s ease; /* Aplica transição lenta em todos os estilos */
+  position: relative;        
+}
+.transicao{
+  transition: all 1s ease; /* Aplica transição lenta em todos os estilos */
+  position: relative; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*******************************************************/
+@keyframes lights {
+  0% {
+    color: hsl(230, 40%, 80%);
+    text-shadow:
+      0 0 1em hsla(320, 100%, 50%, 0.2),
+      0 0 0.125em hsla(320, 100%, 60%, 0.3),
+      -1em -0.125em 0.5em hsla(40, 100%, 60%, 0),
+      1em 0.125em 0.5em hsla(200, 100%, 60%, 0);
+  }
+  
+  30% { 
+    color: hsl(230, 80%, 90%);
+    text-shadow:
+      0 0 1em hsla(320, 100%, 50%, 0.5),
+      0 0 0.125em hsla(320, 100%, 60%, 0.5),
+      -0.5em -0.125em 0.25em hsla(40, 100%, 60%, 0.2),
+      0.5em 0.125em 0.25em hsla(200, 100%, 60%, 0.4);
+  }
+  
+  40% { 
+    color: hsl(230, 100%, 95%);
+    text-shadow:
+      0 0 1em hsla(320, 100%, 50%, 0.5),
+      0 0 0.125em hsla(320, 100%, 90%, 0.5),
+      -0.25em -0.125em 0.125em hsla(40, 100%, 60%, 0.2),
+      0.25em 0.125em 0.125em hsla(200, 100%, 60%, 0.4);
+  }
+  
+  70% {
+    color: hsl(230, 80%, 90%);
+    text-shadow:
+      0 0 1em hsla(320, 100%, 50%, 0.5),
+      0 0 0.125em hsla(320, 100%, 60%, 0.5),
+      0.5em -0.125em 0.25em hsla(40, 100%, 60%, 0.2),
+      -0.5em 0.125em 0.25em hsla(200, 100%, 60%, 0.4);
+  }
+  
+  100% {
+    color: hsl(230, 40%, 80%);
+    text-shadow:
+      0 0 1em hsla(320, 100%, 50%, 0.2),
+      0 0 0.125em hsla(320, 100%, 60%, 0.3),
+      1em -0.125em 0.5em hsla(40, 100%, 60%, 0),
+      -1em 0.125em 0.5em hsla(200, 100%, 60%, 0);
+  }
+  
+}
+
+h1 {
+  margin: auto;
+  font-weight: 450;
+  animation: lights 5s 750ms linear infinite;
+}
+/*******************************************************/
+
+
