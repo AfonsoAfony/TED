@@ -60,6 +60,11 @@ li:hover{
   position: relative; 
 }
 
+
+.MostrarAddRelatorio{
+  display:block;
+}
+
 .Mostrar{
   display:flex;
 }

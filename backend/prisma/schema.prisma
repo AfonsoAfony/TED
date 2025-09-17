@@ -20,6 +20,10 @@ model operadores{
   email String @unique
   password String
 
+  //Fazer relação com rota: uma rota um operador:
+  rota Rota?  @relation(fields: [rotaId], references: [id])
+  rotaId Int? @unique
+
 }
 model QRCodes{
   idQR Int @id @default(autoincrement())
@@ -32,13 +36,25 @@ model QRCodes{
 model Rota{
   id Int @id @default(autoincrement())
   nome String
+  detalhe String?
   pontos Ponto[] //uma rota tem muitos pontos geográficos
+  operador operadores? @relation()
 }
 
 model Ponto{
   id Int @id @default(autoincrement())
   lat Float
   lng Float
-  rota Rota @relation(fields: [rotaId], references: [id])
+  rota Rota @relation(fields: [rotaId], references: [id], onDelete:Cascade)  //onDelete: Cascade -PARA APAGAR OS PONTOS QUANDO A ROTA FOR APAGADA
   rotaId Int
+}
+
+model relatorio{
+  id Int @id @default(autoincrement()) 
+  tipo String
+  volume String
+  rota Int
+  operador Int
+  nomeoperador String
+
 }

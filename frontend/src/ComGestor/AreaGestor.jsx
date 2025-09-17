@@ -9,6 +9,7 @@ import RastreamentoGestor from './RastreamentoGestor.jsx'
 import { useEffect } from 'react'
 
 function AreaGestor() {
+  
  const navigate=useNavigate()
 
 useEffect(()=>{
@@ -34,8 +35,12 @@ else{
     <div className='w-full flex py-4 px-4 border border-indigo-800 justify-between'>
         <div className='flex text-start'>
             <h1 className=" font-semibold letra1 text-3xl md:text-4xl lg:text-5xl px-4 text-white transition">T E D</h1>
+            
         </div>
         <div className="flex text-right ">
+           <button className=' mr-5   bg-transparent text-indigo-300 font-semibold text-sm md:text-lg border-2 rounded border-indigo-400 py-1 px-5 transicao hover:border-none hover:bg-indigo-400  hover:text-slate-800' onClick={() => {navigate("/areagestor/relatorio")}}>
+                   Relatório
+                  </button>
              <BtnTerminarSessao/>
         </div>
             
@@ -52,7 +57,7 @@ else{
                         <Mapeamento/>
                         
                 </div>
-                <div className='flex w-full lg:w-[45%] justify-center'>
+                <div className='flex w-full mt-16 lg:mt-0 lg:w-[45%] justify-center'>
                          <RastreamentoGestor/>
                 </div>
         </div>

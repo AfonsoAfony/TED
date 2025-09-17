@@ -11,6 +11,7 @@ import Verifier from './verifier.jsx';
 import AreaOperadores from './ComOperador/AreaOperadores.jsx';
 import RastreamentoOperador from './ComOperador/RastreamentoOperador.jsx';
 import AreaGestor from './ComGestor/AreaGestor.jsx';
+import Relatorio from './ComGestor/Relatorio.jsx';
 
 const router = createBrowserRouter([
    {
@@ -32,7 +33,11 @@ const router = createBrowserRouter([
   {
     path: "login",
     element: <Login/>
-  }
+  },
+   {
+    path: "areagestor/relatorio",
+    element: <Relatorio/>
+  },
   
 ]);
 
