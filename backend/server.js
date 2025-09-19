@@ -201,13 +201,13 @@ app.get('/server/BuscarPontosRota/:idRota', async (req,res)=>{
 
 
 //********************************************LOGIN COM GOOGLE Verificar se Email existe na base de dados (tabela operadores) */
-/*
+
 app.post("/server/verificarEmailOnBd", async (req,res)=>{
     const {emailUser}=req.body
     
     if (emailUser) {
         try {
-            const DadosDoOperador = await pc.operadores.findFirst({
+            const DadosDoOperador = await pc.operadores.findUnique({
                 select:{
                     id:true,
                     nome:true,
@@ -219,10 +219,9 @@ app.post("/server/verificarEmailOnBd", async (req,res)=>{
                 }
             })
             if (DadosDoOperador) {
-                console.og(DadosDoOperador)
+                console.log(DadosDoOperador)
                 return res.json({
                     DadosDoOperador,
-                    
                     returnSuccess:"Email de operador existente encontrado com sucesso" 
                 })
             } else {
@@ -243,6 +242,7 @@ app.post("/server/verificarEmailOnBd", async (req,res)=>{
 })
 
 //********************************************LOGIN NORmal Verificar se Email e Senha existe na base de dados (tabela operadores) */
+
 app.post('/server/verificarEmailESenhaOnBd',async (req,res)=>{
   const {email,password}=req.body;
     if (email && password) {

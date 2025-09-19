@@ -5,11 +5,43 @@ import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import eventBus from './components/eventBus';
 
+//função para salvar os dados do usuário autenticado no LocalStorage
+
+function SalvarDadosNoLocalStorage(id,nomeOper,emailOper,funcaoOper){
+    console.log(id,nomeOper,emailOper,emailOper,funcaoOper)
+    localStorage.removeItem("dadosOperadorAutenticado")
+       const operador = {
+  autencicado:"sim",   
+  id: id,
+  nome: nomeOper,
+  funcao: funcaoOper,
+  email: emailOper
+}
+
+localStorage.setItem("dadosOperadorAutenticado", JSON.stringify(operador));
+}
+
+
+/************************************************************** */
+ function LoginGoogle() {
+/************************************************************** */
+    const navigate = useNavigate();
+    const [user, setUser] = useState([]);
+
+    const login = useGoogleLogin({
+        onSuccess: (codeResponse) => setUser(codeResponse),
+        onError: (error) => console.log('Login Failed:', error),
+    });
+
+
+
+
+
 //Criando função para consultar se email é de um usuário na base de dados
 
 async function VerificarEmailNaBD(emailUser){
     console.log(emailUser)
-    //chamr icone de escpera
+    //chamar icone de espera
    
     
     let response= await fetch("http://localhost:3000/server/verificarEmailOnBd",{
@@ -19,11 +51,11 @@ async function VerificarEmailNaBD(emailUser){
     })
     
     let dados=await response.json()
-    console.log("AS"+dados)
+   
     
     if (response.ok) {
-       console.log("responseOKA_y")
-       console.log("asss"+dados.returnSuccess)
+        
+       
         try {
             if(dados.DadosDoOperador){
                 const operador = dados.DadosDoOperador
@@ -31,10 +63,9 @@ async function VerificarEmailNaBD(emailUser){
                 eventBus.emit("GetOffWaitingIcon")
                 eventBus.emit("ActiveSms",`Boa: ${dados.returnSuccess}`,"positivo")
 
-                 console.log(`${operador.id} mn ${operador.nome} mn ${operador.email}mn ${operador.funcao}`)
                  //guardar dados no local storage e direccionar para dentro do sistema
-                localStorage.setItem('autenticacao', 'autenticado');
-                //SalvarDadosNoLocalStorage(dados.id,dados.nome,dados.email,dados.funcao)
+                SalvarDadosNoLocalStorage(operador.id,operador.nome,operador.email,operador.funcao)
+                navigate("/")                    
 
             }
              else{
@@ -61,37 +92,15 @@ async function VerificarEmailNaBD(emailUser){
         //Activar função mostrar sms que está em DivInfo.jsx
             eventBus.emit("GetOffWaitingIcon")
 
-        console.log(`OPS! ${dados.returnError}`)
+            console.log(`OPS! ${dados.returnError}`)
          eventBus.emit("ActiveSms",`${dados.returnError}`,"negativo")
 
     }
 }
 
-//função para salvar os dados do usuário autenticado no LocalStorage
-function SalvarDadosNoLocalStorage(id,nomeOper,emailOper,funcaoOper){
-    const operador = {
-  autencicado:"sim",   
-  id: id,
-  nome: nomeOper,
-  funcao: emailOper,
-  email: funcaoOper
-};
-
-localStorage.setItem("dadosOperador", JSON.stringify(operador));
-}
 
 
 
-
-
- function LoginGoogle() {
-    const navigate = useNavigate();
-    const [user, setUser] = useState([]);
-
-    const login = useGoogleLogin({
-        onSuccess: (codeResponse) => setUser(codeResponse),
-        onError: (error) => console.log('Login Failed:', error),
-    });
 
     useEffect(() => {
         if (user) {
@@ -113,15 +122,13 @@ localStorage.setItem("dadosOperador", JSON.stringify(operador));
                          //Se o email for válido, envio faremos um fech no server para verificar se o email existe na base de dados
                             //se permitiremos a entrada e pegaremos os dados do usuário que faz o login!
                          VerificarEmailNaBD(data.email)
-
-                        
-                        
+                         
 
                         //se o login for feito com sucesso então activaremos no Bus a função de terminar a sessão
                             eventBus.on('CloseGoogleSession', () => {
                                 googleLogout();
-                                localStorage.removeItem('autenticacao');
-                                localStorage.removeItem('googleLogin');
+                                localStorage.removeItem('dadosOperador');
+
                             });
 
                        
